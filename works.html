@@ -475,28 +475,6 @@
             margin-bottom: 15px;
             color: #ccc;
         }
-.adaptive-iframe {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 16/9; /* 保持16:9比例，根据实际需求调整 */
-}
-
-/* 移动端样式 */
-@media (max-width: 769px) {
-    .adaptive-iframe {
-        width: 100%;
-        height: auto;
-        min-height: 200px; /* 防止高度过小 */
-    }
-}
-
-/* 桌面端样式 */
-@media (min-width: 769px) {
-    .adaptive-iframe {
-        width: 1024px;
-        height: 576px;
-    }
-}
     </style>
 </head>
 <body>
@@ -538,16 +516,6 @@
             <div class="section-title">
                 <h2>攻略心得</h2>
             </div>
-				<center>
-<iframe class="adaptive-iframe" 
-        src="https://www.bilibili.com/blackboard/live/live-activity-player.html?cid=30778828&quality=0" 
-        frameborder="no" 
-        framespacing="0" 
-        scrolling="no" 
-        allow="autoplay; encrypted-media" 
-        allowfullscreen="true">
-</iframe>
-				</center> 
             <!-- 搜索栏 -->
             <div class="search-section">
                 <div class="search-box">
