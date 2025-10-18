@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>浅夕工作室 - 专业小说创作与设计</title>
+    <style>
+        /* 全局样式 */
+        :root {
+            --primary-color: #8B7355;
+            --secondary-color: #D4B996;
+            --accent-color: #A67C52;
+            --text-color: #333;
+            --light-color: #F8F4E9;
+            --dark-color: #4A3C2A;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Serif SC', 'SimSun', serif;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 导航栏 */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .header-scrolled {
+            background-color: rgba(255, 255, 255, 0.98);
+            padding: 10px 0;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo span {
+            color: var(--accent-color);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        /* 英雄区域 */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1455390582262-044cdead277a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding-top: 80px;
+        }
+        
+        .hero-content h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s forwards 0.5s;
+        }
+        
+        .hero-content p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            max-width: 700px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s forwards 0.8s;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s forwards 1.1s;
+        }
+        
+        .btn:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* 部门介绍 */
+        .departments {
+            padding: 100px 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            color: var(--primary-color);
+            position: relative;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 3px;
+            background-color: var(--accent-color);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title p {
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .department-cards {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .department-card {
+            flex: 1;
+            min-width: 300px;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .department-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .card-content {
+            padding: 25px;
+        }
+        
+        .card-content h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        .card-content p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .card-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .card-link i {
+            margin-left: 5px;
+            transition: transform 0.3s;
+        }
+        
+        .card-link:hover i {
+            transform: translateX(5px);
+        }
+        
+        /* 作品展示 */
+        .works {
+            padding: 100px 0;
+            background-color: var(--light-color);
+        }
+        
+        .work-filter {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 8px 20px;
+            margin: 0 5px 10px;
+            background: none;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .filter-btn.active, .filter-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .work-item {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .work-img {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.5s;
+        }
+        
+        .work-item:hover .work-img {
+            transform: scale(1.1);
+        }
+        
+        .work-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(139, 115, 85, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+        
+        .work-item:hover .work-overlay {
+            opacity: 1;
+        }
+        
+        .work-overlay h3 {
+            margin-bottom: 10px;
+            font-size: 22px;
+        }
+        
+        .work-overlay p {
+            margin-bottom: 15px;
+        }
+        
+        /* 团队介绍 */
+        .team {
+            padding: 100px 0;
+            background-color: white;
+        }
+        
+        .team-members {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .team-member {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+        }
+        
+        .member-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            background-size: cover;
+            background-position: center;
+            border: 5px solid var(--secondary-color);
+        }
+        
+        .member-name {
+            font-size: 20px;
+            margin-bottom: 5px;
+            color: var(--primary-color);
+        }
+        
+        .member-role {
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        
+        .member-desc {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        /* 联系表单 */
+        .contact {
+            padding: 100px 0;
+            background-color: var(--light-color);
+        }
+        
+        .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 50px;
+        }
+        
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .contact-form {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .info-item {
+            display: flex;
+            margin-bottom: 30px;
+        }
+        
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .info-content h3 {
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: var(--primary-color);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        /* 页脚 */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 70px 0 20px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 50px;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent-color);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+        
+        .social-link:hover {
+            background-color: var(--accent-color);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 14px;
+        }
+        
+        /* 动画 */
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .department-cards, .team-members {
+                flex-direction: column;
+            }
+            
+            .department-card, .team-member {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background-color: white;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 50px;
+                transition: left 0.5s;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .hero-content h1 {
+                font-size: 36px;
+            }
+            
+            .hero-content p {
+                font-size: 18px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header id="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">浅夕<span>工作室</span></div>
+                <ul class="nav-links">
+                    <li><a href="#home">首页</a></li>
+                    <li><a href="#departments">部门介绍</a></li>
+                    <li><a href="#works">作品展示</a></li>
+                    <li><a href="#team">团队介绍</a></li>
+                    <li><a href="#contact">联系我们</a></li>
+                </ul>
+                <div class="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>用文字编织梦想，用故事温暖人心</h1>
+                <p>浅夕工作室致力于创作优质小说内容，提供专业的设计与传媒服务，让每一个故事都能绽放光彩。</p>
+                <a href="#departments" class="btn">了解更多</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 部门介绍 -->
+    <section class="departments" id="departments">
+        <div class="container">
+            <div class="section-title">
+                <h2>我们的部门</h2>
+                <p>浅夕工作室由三大核心部门组成，各司其职，共同打造精品内容</p>
+            </div>
+            <div class="department-cards">
+                <div class="department-card">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1455390582262-044cdead277a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="card-content">
+                        <h3>创作部</h3>
+                        <p>我们拥有经验丰富的创作团队，专注于各类小说创作，包括言情、玄幻、都市、悬疑等多种题材。从大纲构思到情节设计，从人物塑造到文字润色，我们致力于打造引人入胜的精彩故事。</p>
+                        <a href="#" class="card-link">了解更多 <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="department-card">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="card-content">
+                        <h3>设计部</h3>
+                        <p>专业的设计团队为您的作品打造精美封面和插图，提升作品整体视觉效果。我们擅长多种设计风格，能够根据作品内容定制专属设计方案，让文字与视觉艺术完美融合。</p>
+                        <a href="#" class="card-link">了解更多 <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="department-card">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="card-content">
+                        <h3>传媒部</h3>
+                        <p>负责作品的推广与运营，通过多渠道传播让优秀作品触达更多读者。我们精通新媒体运营、内容营销和品牌建设，助力作品在竞争激烈的市场中脱颖而出。</p>
+                        <a href="#" class="card-link">了解更多 <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 作品展示 -->
+    <section class="works" id="works">
+        <div class="container">
+            <div class="section-title">
+                <h2>作品展示</h2>
+                <p>欣赏我们创作的部分优秀作品</p>
+            </div>
+            <div class="work-filter">
+                <button class="filter-btn active" data-filter="all">全部</button>
+                <button class="filter-btn" data-filter="romance">言情</button>
+                <button class="filter-btn" data-filter="fantasy">玄幻</button>
+                <button class="filter-btn" data-filter="urban">都市</button>
+                <button class="filter-btn" data-filter="mystery">悬疑</button>
+            </div>
+            <div class="work-grid">
+                <div class="work-item" data-category="romance">
+                    <div class="work-img" style="background-image: url('https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="work-overlay">
+                        <h3>《时光与你皆温柔》</h3>
+                        <p>一段跨越十年的深情守候，温暖治愈的都市爱情故事</p>
+                        <a href="#" class="btn">阅读全文</a>
+                    </div>
+                </div>
+                <div class="work-item" data-category="fantasy">
+                    <div class="work-img" style="background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="work-overlay">
+                        <h3>《九霄神帝》</h3>
+                        <p>热血沸腾的玄幻修仙之旅，谱写一代神帝的传奇史诗</p>
+                        <a href="#" class="btn">阅读全文</a>
+                    </div>
+                </div>
+                <div class="work-item" data-category="urban">
+                    <div class="work-img" style="background-image: url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="work-overlay">
+                        <h3>《都市逆袭人生》</h3>
+                        <p>平凡青年意外获得异能，开启精彩纷呈的都市冒险</p>
+                        <a href="#" class="btn">阅读全文</a>
+                    </div>
+                </div>
+                <div class="work-item" data-category="mystery">
+                    <div class="work-img" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="work-overlay">
+                        <h3>《密室谜踪》</h3>
+                        <p>环环相扣的悬疑案件，挑战你的推理极限</p>
+                        <a href="#" class="btn">阅读全文</a>
+                    </div>
+                </div>
+                <div class="work-item" data-category="romance">
+                    <div class="work-img" style="background-image: url('https://images.unsplash.com/photo-1512820790803-83ca734da794?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="work-overlay">
+                        <h3>《星辰下的约定》</h3>
+                        <p>青涩校园恋情，纯真美好的青春回忆</p>
+                        <a href="#" class="btn">阅读全文</a>
+                    </div>
+                </div>
+                <div class="work-item" data-category="fantasy">
+                    <div class="work-img" style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <div class="work-overlay">
+                        <h3>《龙族觉醒》</h3>
+                        <p>西方奇幻史诗，龙与魔法的壮丽世界</p>
+                        <a href="#" class="btn">阅读全文</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 团队介绍 -->
+    <section class="team" id="team">
+        <div class="container">
+            <div class="section-title">
+                <h2>核心团队</h2>
+                <p>认识我们才华横溢的团队成员</p>
+            </div>
+            <div class="team-members">
+                <div class="team-member">
+                    <div class="member-img" style="background-image: url('https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <h3 class="member-name">林浅夕</h3>
+                    <p class="member-role">创始人 & 创作总监</p>
+                    <p class="member-desc">资深作家，拥有十年小说创作经验，擅长多种文学题材，带领团队打造多部畅销作品。</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-img" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <h3 class="member-name">陈墨</h3>
+                    <p class="member-role">创作部部长</p>
+                    <p class="member-desc">文学硕士，专注情节设计与人物塑造，善于挖掘故事深度，打造有灵魂的作品。</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-img" style="background-image: url('https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <h3 class="member-name">苏雅</h3>
+                    <p class="member-role">设计部部长</p>
+                    <p class="member-desc">视觉设计师，擅长将文字意境转化为视觉语言，为作品注入独特的艺术魅力。</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-img" style="background-image: url('https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                    <h3 class="member-name">赵明宇</h3>
+                    <p class="member-role">传媒部部长</p>
+                    <p class="member-desc">新媒体运营专家，精通内容营销策略，助力作品在数字时代获得最大曝光。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系表单 -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>联系我们</h2>
+                <p>有任何合作意向或疑问，欢迎与我们联系</p>
+            </div>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="info-content">
+                            <h3>地址</h3>
+                            <p>北京市朝阳区文化创意产业园A座12层</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="info-content">
+                            <h3>电话</h3>
+                            <p>+86 10 1234 5678</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="info-content">
+                            <h3>邮箱</h3>
+                            <p>contact@qianxi-studio.com</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="info-content">
+                            <h3>工作时间</h3>
+                            <p>周一至周五: 9:00 - 18:00</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="您的姓名" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="您的邮箱" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="主题" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" placeholder="请输入您的留言..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn">发送消息</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>浅夕工作室</h3>
+                    <p>用文字编织梦想，用故事温暖人心。我们致力于创作优质小说内容，提供专业的设计与传媒服务。</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-weixin"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-weibo"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-qq"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-douban"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>快速链接</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">首页</a></li>
+                        <li><a href="#departments">部门介绍</a></li>
+                        <li><a href="#works">作品展示</a></li>
+                        <li><a href="#team">团队介绍</a></li>
+                        <li><a href="#contact">联系我们</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>部门服务</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">小说创作</a></li>
+                        <li><a href="#">封面设计</a></li>
+                        <li><a href="#">插图绘制</a></li>
+                        <li><a href="#">内容推广</a></li>
+                        <li><a href="#">版权运营</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>订阅资讯</h3>
+                    <p>订阅我们的最新作品和活动信息</p>
+                    <div class="form-group">
+                        <input type="email" class="form-control" placeholder="请输入您的邮箱">
+                    </div>
+                    <button class="btn">订阅</button>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 浅夕工作室 版权所有</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('header-scrolled');
+            } else {
+                header.classList.remove('header-scrolled');
+            }
+        });
+
+        // 移动端菜单切换
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenu.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+        });
+
+        // 作品筛选功能
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const workItems = document.querySelectorAll('.work-item');
+        
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // 移除所有按钮的active类
+                filterBtns.forEach(b => b.classList.remove('active'));
+                // 给当前点击的按钮添加active类
+                this.classList.add('active');
+                
+                const filter = this.getAttribute('data-filter');
+                
+                workItems.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // 移动端菜单关闭
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                    }
+                }
+            });
+        });
+
+        // 表单提交
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('感谢您的留言！我们会尽快与您联系。');
+            this.reset();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>枫谷师门 - 文化知识传承基地</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 全局样式 */
+        :root {
+            --primary-color: #2E8B57;
+            --secondary-color: #8FBC8F;
+            --accent-color: #DAA520;
+            --light-color: #F5F5DC;
+            --dark-color: #556B2F;
+            --text-color: #333;
+            --card-bg: #FFFFFF;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Serif SC', 'Microsoft YaHei', serif;
+        }
+        
+        body {
+            color: var(--text-color);
+            line-height: 1.6;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8f5e8 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark-color);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 3px;
+            background: var(--accent-color);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title p {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* 导航栏 */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border-bottom: 2px solid var(--primary-color);
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            color: var(--dark-color);
+            font-size: 1.5rem;
+        }
+        
+        /* 英雄区域 */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(46, 139, 87, 0.7), rgba(85, 107, 47, 0.8)), url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 1s ease;
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(218, 165, 32, 0.3);
+        }
+        
+        .btn:hover {
+            background: #b8860b;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(218, 165, 32, 0.4);
+        }
+        
+        /* 关于师门 */
+        .about {
+            position: relative;
+        }
+        
+        .about::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(46,139,87,0.05)"/></svg>');
+            background-size: cover;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+        
+        .about-text p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            border: 5px solid var(--secondary-color);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s;
+        }
+        
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* 部门展示 */
+        .departments {
+            background: rgba(255, 255, 255, 0.7);
+        }
+        
+        .dept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .dept-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            border-top: 5px solid var(--primary-color);
+            position: relative;
+        }
+        
+        .dept-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .dept-header {
+            padding: 20px;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+        
+        .dept-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.8rem;
+        }
+        
+        .dept-title {
+            flex: 1;
+        }
+        
+        .dept-title h3 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        
+        .dept-content {
+            padding: 20px;
+        }
+        
+        .dept-content p {
+            margin-bottom: 15px;
+        }
+        
+        .dept-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        
+        .dept-tag {
+            background: rgba(46, 139, 87, 0.1);
+            color: var(--primary-color);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        /* 组织结构 */
+        .structure {
+            background: rgba(255, 255, 255, 0.7);
+        }
+        
+        .org-chart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+        
+        .org-level {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 50px;
+            width: 100%;
+        }
+        
+        .org-node {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            width: 200px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--secondary-color);
+            transition: all 0.3s;
+        }
+        
+        .org-node:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .org-node h4 {
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+        
+        .org-node p {
+            font-size: 0.9rem;
+            color: var(--dark-color);
+        }
+        
+        .connector {
+            position: absolute;
+            height: 30px;
+            width: 2px;
+            background: var(--secondary-color);
+        }
+        
+        /* 传承特色 */
+        .features {
+            position: relative;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            border: 1px solid var(--secondary-color);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+        
+        /* 页脚 */
+        footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+            color: var(--secondary-color);
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--accent-color);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+        
+        /* 动画 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .hero h1 {
+                font-size: 3rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: white;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 50px;
+                transition: left 0.3s;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+            
+            .dept-grid, .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <i class="fas fa-tree"></i>
+                    枫谷师门
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#home">首页</a></li>
+                    <li><a href="#about">关于师门</a></li>
+                    <li><a href="#departments">部门介绍</a></li>
+                    <li><a href="#structure">组织结构</a></li>
+                    <li><a href="#features">传承特色</a></li>
+                    <li><a href="#contact">加入我们</a></li>
+                </ul>
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>枫谷师门</h1>
+                <p>文化知识传承基地，以兴趣为起点，传承发扬文化知识</p>
+                <a href="#about" class="btn">探索师门</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于师门 -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>关于枫谷师门</h2>
+                <p>一个以兴趣为起点，传承发扬文化知识的基地</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>我们的使命与愿景</h3>
+                    <p>枫谷师门成立于2021年，是一个以"文化传承"为核心理念的知识传承社群。我们致力于通过师徒制传承技艺与知识，培养新一代文化传承者。</p>
+                    <p>师门汇聚了来自不同领域的导师和学徒，通过师徒结对、技能传授和经验分享，实现知识的代际传递与创新发展。</p>
+                    <p>我们相信，文化知识是人类智慧的结晶，通过系统传承与创新发展，能够延续文明血脉，丰富人类精神世界。</p>
+                    <a href="#contact" class="btn" style="margin-top: 20px;">加入我们的师门</a>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="枫谷师门">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 部门介绍 -->
+    <section class="departments" id="departments">
+        <div class="container">
+            <div class="section-title">
+                <h2>部门介绍</h2>
+                <p>七大核心部门，各司其职，协同发展</p>
+            </div>
+            <div class="dept-grid">
+                <!-- 天梦苑 -->
+                <div class="dept-card">
+                    <div class="dept-header">
+                        <div class="dept-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="dept-title">
+                            <h3>天梦苑</h3>
+                            <p>人事行政</p>
+                        </div>
+                    </div>
+                    <div class="dept-content">
+                        <p>负责师门成员管理、内部行政事务、资源调配与日常运营，确保师门高效运转。</p>
+                        <div class="dept-tags">
+                            <span class="dept-tag">成员管理</span>
+                            <span class="dept-tag">行政事务</span>
+                            <span class="dept-tag">资源调配</span>
+                            <span class="dept-tag">日常运营</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 幻音坊 -->
+                <div class="dept-card">
+                    <div class="dept-header">
+                        <div class="dept-icon">
+                            <i class="fas fa-bullhorn"></i>
+                        </div>
+                        <div class="dept-title">
+                            <h3>幻音坊</h3>
+                            <p>外宣合作</p>
+                        </div>
+                    </div>
+                    <div class="dept-content">
+                        <p>负责师门品牌建设、对外宣传、合作交流与媒体关系，提升师门影响力与美誉度。</p>
+                        <div class="dept-tags">
+                            <span class="dept-tag">品牌建设</span>
+                            <span class="dept-tag">对外宣传</span>
+                            <span class="dept-tag">合作交流</span>
+                            <span class="dept-tag">媒体关系</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 琉璃阁 -->
+                <div class="dept-card">
+                    <div class="dept-header">
+                        <div class="dept-icon">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div class="dept-title">
+                            <h3>琉璃阁</h3>
+                            <p>运营管理</p>
+                        </div>
+                    </div>
+                    <div class="dept-content">
+                        <p>负责师门运营管理、项目协调、流程优化与绩效评估，确保各项事务有序进行。</p>
+                        <div class="dept-tags">
+                            <span class="dept-tag">运营管理</span>
+                            <span class="dept-tag">项目协调</span>
+                            <span class="dept-tag">流程优化</span>
+                            <span class="dept-tag">绩效评估</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 魂岛 -->
+                <div class="dept-card">
+                    <div class="dept-header">
+                        <div class="dept-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="dept-title">
+                            <h3>魂岛</h3>
+                            <p>精神文化</p>
+                        </div>
+                    </div>
+                    <div class="dept-content">
+                        <p>负责精神文化传承、思想交流、哲学探讨与心灵修养，提升师门成员精神境界。</p>
+                        <div class="dept-tags">
+                            <span class="dept-tag">精神文化</span>
+                            <span class="dept-tag">思想交流</span>
+                            <span class="dept-tag">哲学探讨</span>
+                            <span class="dept-tag">心灵修养</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 灵岛 -->
+                <div class="dept-card">
+                    <div class="dept-header">
+                        <div class="dept-icon">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <div class="dept-title">
+                            <h3>灵岛</h3>
+                            <p>艺术创作</p>
+                        </div>
+                    </div>
+                    <div class="dept-content">
+                        <p>负责艺术创作、灵感激发、创意表达与美学教育，培养师门成员艺术修养与创造力。</p>
+                        <div class="dept-tags">
+                            <span class="dept-tag">艺术创作</span>
+                            <span class="dept-tag">灵感激发</span>
+                            <span class="dept-tag">创意表达</span>
+                            <span class="dept-tag">美学教育</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 商岛 -->
+                <div class="dept-card">
+                    <div class="dept-header">
+                        <div class="dept-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="dept-title">
+                            <h3>商岛</h3>
+                            <p>商务发展</p>
+                        </div>
+                    </div>
+                    <div class="dept-content">
+                        <p>负责商务合作、资源对接、市场拓展与商业策划，为师门创造更多发展机会。</p>
+                        <div class="dept-tags">
+                            <span class="dept-tag">商务合作</span>
+                            <span class="dept-tag">资源对接</span>
+                            <span class="dept-tag">市场拓展</span>
+                            <span class="dept-tag">商业策划</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 聆风院 -->
+                <div class="dept-card">
+                    <div class="dept-header">
+                        <div class="dept-icon">
+                            <i class="fas fa-user-secret"></i>
+                        </div>
+                        <div class="dept-title">
+                            <h3>聆风院</h3>
+                            <p>特殊部门</p>
+                        </div>
+                    </div>
+                    <div class="dept-content">
+                        <p>负责特殊任务执行、机密信息处理、危机应对与特殊技能培训，保障师门安全与发展。</p>
+                        <div class="dept-tags">
+                            <span class="dept-tag">特殊任务</span>
+                            <span class="dept-tag">机密信息</span>
+                            <span class="dept-tag">危机应对</span>
+                            <span class="dept-tag">特殊技能</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 组织结构 -->
+    <section class="structure" id="structure">
+        <div class="container">
+            <div class="section-title">
+                <h2>组织结构</h2>
+                <p>清晰的层级结构，高效的决策机制</p>
+            </div>
+            <div class="org-chart">
+                <!-- 第一层：师门管理层 -->
+                <div class="org-level">
+                    <div class="org-node">
+                        <h4>师门掌门</h4>
+                        <p>枫华</p>
+                    </div>
+                    <div class="org-node">
+                        <h4>师门副掌门</h4>
+                        <p>谷雨</p>
+                    </div>
+                </div>
+                
+                <!-- 第二层：部门负责人 -->
+                <div class="org-level">
+                    <div class="org-node">
+                        <h4>天梦苑主</h4>
+                        <p>天枢</p>
+                    </div>
+                    <div class="org-node">
+                        <h4>幻音坊主</h4>
+                        <p>幻音</p>
+                    </div>
+                    <div class="org-node">
+                        <h4>琉璃阁主</h4>
+                        <p>琉璃</p>
+                    </div>
+                    <div class="org-node">
+                        <h4>魂岛岛主</h4>
+                        <p>魂梦</p>
+                    </div>
+                    <div class="org-node">
+                        <h4>灵岛岛主</h4>
+                        <p>灵韵</p>
+                    </div>
+                    <div class="org-node">
+                        <h4>商岛岛主</h4>
+                        <p>商羽</p>
+                    </div>
+                    <div class="org-node">
+                        <h4>聆风院主</h4>
+                        <p>聆风</p>
+                    </div>
+                </div>
+                
+                <!-- 第三层：副职 -->
+                <div class="org-level">
+                    <div class="org-node">
+                        <h4>部门副职</h4>
+                        <p>各1-2名</p>
+                    </div>
+                    <div class="org-node">
+                        <h4>岛屿副职</h4>
+                        <p>各1-2名</p>
+                    </div>
+                </div>
+                
+                <!-- 第四层：导师 -->
+                <div class="org-level">
+                    <div class="org-node">
+                        <h4>高级导师</h4>
+                        <p>资深传承者</p>
+                    </div>
+                    <div class="org-node">
+                        <h4>普通导师</h4>
+                        <p>经验传承者</p>
+                    </div>
+                </div>
+                
+                <!-- 第五层：学徒 -->
+                <div class="org-level">
+                    <div class="org-node">
+                        <h4>内门弟子</h4>
+                        <p>核心学徒</p>
+                    </div>
+                    <div class="org-node">
+                        <h4>外门弟子</h4>
+                        <p>普通学徒</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 传承特色 -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>传承特色</h2>
+                <p>枫谷师门的独特传承方式与理念</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <h3>师徒传承</h3>
+                    <p>通过一对一或一对多的师徒制，实现知识与技能的代际传递，确保传承质量。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <h3>互助成长</h3>
+                    <p>师门成员间相互学习、相互帮助，形成良性互动，共同进步与成长。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3>知识共享</h3>
+                    <p>建立知识库与资源共享平台，实现知识积累与共享，避免重复劳动。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>创新融合</h3>
+                    <p>在传承传统知识的基础上，鼓励创新思维与跨界融合，推动知识发展。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-globe-asia"></i>
+                    </div>
+                    <h3>文化传播</h3>
+                    <p>通过多种渠道与形式，将优秀文化知识传播给更多人，扩大影响力。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>兴趣导向</h3>
+                    <p>以成员兴趣为起点，激发学习热情与创造力，实现个性化发展。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>枫谷师门</h3>
+                    <p>文化知识传承基地，以兴趣为起点，传承发扬文化知识。</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-weixin"></i></a>
+                        <a href="#"><i class="fab fa-qq"></i></a>
+                        <a href="#"><i class="fab fa-weibo"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>快速链接</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">首页</a></li>
+                        <li><a href="#about">关于师门</a></li>
+                        <li><a href="#departments">部门介绍</a></li>
+                        <li><a href="#structure">组织结构</a></li>
+                        <li><a href="#features">传承特色</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>核心部门</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">天梦苑 - 人事行政</a></li>
+                        <li><a href="#">幻音坊 - 外宣合作</a></li>
+                        <li><a href="#">琉璃阁 - 运营管理</a></li>
+                        <li><a href="#">魂岛 - 精神文化</a></li>
+                        <li><a href="#">灵岛 - 艺术创作</a></li>
+                        <li><a href="#">商岛 - 商务发展</a></li>
+                        <li><a href="#">聆风院 - 特殊部门</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>联系我们</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-envelope"></i> contact@fenggu-school.com</li>
+                        <li><i class="fas fa-phone"></i> +86 400-666-7777</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 北京市海淀区文化园区枫谷大厦</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 枫谷师门 版权所有 | 隶属于皇宸部落</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = '0 2px 15px rgba(0, 0, 0, 0.1)';
+            }
+        });
+
+        // 移动端菜单切换
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // 移动端点击后关闭菜单
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                    }
+                }
+            });
+        });
+
+        // 滚动动画
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // 观察需要动画的元素
+        document.querySelectorAll('.dept-card, .about-content, .org-node, .feature-card').forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

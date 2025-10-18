@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>卿阁 - 全女性组织</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 全局样式 */
+        :root {
+            --primary-color: #D94F87;
+            --secondary-color: #F2A0B6;
+            --accent-color: #F2C4CE;
+            --light-color: #FFF5F7;
+            --dark-color: #8C4A6E;
+            --text-color: #5A3E4C;
+            --card-bg: #FFFFFF;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Serif SC', 'Microsoft YaHei', serif;
+        }
+        
+        body {
+            color: var(--text-color);
+            line-height: 1.6;
+            background: linear-gradient(135deg, #fff5f7 0%, #ffeef2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark-color);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 3px;
+            background: var(--accent-color);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title p {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* 导航栏 */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            color: var(--dark-color);
+            font-size: 1.5rem;
+        }
+        
+        /* 英雄区域 */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(217, 79, 135, 0.7), rgba(140, 74, 110, 0.8)), url('https://images.unsplash.com/photo-1532634922-8fe0b757fb13?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 1s ease;
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(242, 160, 182, 0.3);
+        }
+        
+        .btn:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(217, 79, 135, 0.4);
+        }
+        
+        /* 关于卿阁 */
+        .about {
+            position: relative;
+        }
+        
+        .about::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(217,79,135,0.05)"/></svg>');
+            background-size: cover;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+        
+        .about-text p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            border: 5px solid var(--accent-color);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s;
+        }
+        
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* 组织特色 */
+        .features {
+            background: rgba(255, 255, 255, 0.7);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            border-top: 5px solid var(--primary-color);
+            position: relative;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+        
+        /* 组织结构 */
+        .structure {
+            position: relative;
+        }
+        
+        .org-chart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+        
+        .org-level {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 50px;
+            width: 100%;
+        }
+        
+        .org-node {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            width: 200px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--accent-color);
+            transition: all 0.3s;
+        }
+        
+        .org-node:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .org-node h4 {
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+        
+        .org-node p {
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+        }
+        
+        .connector {
+            position: absolute;
+            height: 30px;
+            width: 2px;
+            background: var(--accent-color);
+        }
+        
+        /* 活动展示 */
+        .activities {
+            background: rgba(255, 255, 255, 0.7);
+        }
+        
+        .activity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .activity-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .activity-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .activity-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .activity-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .activity-card:hover .activity-image img {
+            transform: scale(1.1);
+        }
+        
+        .activity-content {
+            padding: 20px;
+        }
+        
+        .activity-content h3 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .activity-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+        
+        /* 页脚 */
+        footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+            color: var(--accent-color);
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--accent-color);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+        
+        /* 动画 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .hero h1 {
+                font-size: 3rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: white;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 50px;
+                transition: left 0.3s;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+            
+            .features-grid, .activity-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <i class="fas fa-female"></i>
+                    卿阁
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#home">首页</a></li>
+                    <li><a href="#about">关于卿阁</a></li>
+                    <li><a href="#features">组织特色</a></li>
+                    <li><a href="#structure">组织结构</a></li>
+                    <li><a href="#activities">活动展示</a></li>
+                    <li><a href="#contact">加入我们</a></li>
+                </ul>
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>卿阁</h1>
+                <p>专为女性打造的组织，提供专属的交流平台和发展空间</p>
+                <a href="#about" class="btn">探索卿阁</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于卿阁 -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>关于卿阁</h2>
+                <p>一个专为女性成员打造的组织，提供专属的交流平台和发展空间</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>我们的使命与愿景</h3>
+                    <p>卿阁成立于2021年，是一个以"女性互助成长"为核心理念的全女性组织。我们致力于为女性成员提供专属的交流平台和发展空间，助力女性实现自我价值。</p>
+                    <p>卿阁汇聚了来自不同领域的优秀女性，通过资源共享、经验交流和互助合作，共同打造一个温暖、包容、充满力量的女性社群。</p>
+                    <p>我们相信，女性力量是社会发展的重要推动力，通过相互支持与共同成长，女性能够在各个领域绽放独特光彩。</p>
+                    <a href="#contact" class="btn" style="margin-top: 20px;">加入我们的卿阁</a>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="卿阁成员">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 组织特色 -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>组织特色</h2>
+                <p>卿阁的独特特色与理念</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-female"></i>
+                    </div>
+                    <h3>全女性社群</h3>
+                    <p>专为女性打造的专属空间，提供安全、舒适、包容的交流环境。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <h3>互助成长</h3>
+                    <p>成员间相互支持、相互学习，共同成长与进步。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <h3>女性力量</h3>
+                    <p>发掘和培养女性独特优势，展现女性在各个领域的卓越能力。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>温暖包容</h3>
+                    <p>营造温暖、包容的社群氛围，让每位成员都能找到归属感。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>灵感激发</h3>
+                    <p>通过分享与交流，激发创意灵感，促进个人与集体成长。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h3>持续发展</h3>
+                    <p>关注女性长期发展，提供持续的学习与成长机会。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 组织结构 -->
+    <section class="structure" id="structure">
+        <div class="container">
+            <div class="section-title">
+                <h2>组织结构</h2>
+                <p>清晰的层级结构，高效的决策机制</p>
+            </div>
+            <div class="org-chart">
+                <!-- 第一层：卿阁管理层 -->
+                <div class="org-level">
+                    <div class="org-node">
+                        <h4>阁主</h4>
+                        <p>卿云</p>
+                    </div>
+                    <div class="org-node">
+                        <h4>副阁主</h4>
+                        <p>卿月</p>
+                    </div>
+                </div>
+                
+                <!-- 第二层：部门负责人 -->
+                <div class="org-level">
+                    <div class="org-node">
+                        <h4>人事部部长</h4>
+                        <p>云舒</p>
+                    </div>
+                    <div class="org-node">
+                        <h4>活动部部长</h4>
+                        <p>雨晴</p>
+                    </div>
+                    <div class="org-node">
+                        <h4>外联部部长</h4>
+                        <p>风雅</p>
+                    </div>
+                    <div class="org-node">
+                        <h4>宣传部部长</h4>
+                        <p>雪梅</p>
+                    </div>
+                    <div class="org-node">
+                        <h4>文艺部部长</h4>
+                        <p>花影</p>
+                    </div>
+                    <div class="org-node">
+                        <h4>生活部部长</h4>
+                        <p>月华</p>
+                    </div>
+                </div>
+                
+                <!-- 第三层：副职 -->
+                <div class="org-level">
+                    <div class="org-node">
+                        <h4>部门副部长</h4>
+                        <p>各1-2名</p>
+                    </div>
+                </div>
+                
+                <!-- 第四层：组长 -->
+                <div class="org-level">
+                    <div class="org-node">
+                        <h4>部门组长</h4>
+                        <p>若干名</p>
+                    </div>
+                </div>
+                
+                <!-- 第五层：副组长/成员 -->
+                <div class="org-level">
+                    <div class="org-node">
+                        <h4>副组长</h4>
+                        <p>若干名</p>
+                    </div>
+                    <div class="org-node">
+                        <h4>卿阁成员</h4>
+                        <p>全体成员</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 活动展示 -->
+    <section class="activities" id="activities">
+        <div class="container">
+            <div class="section-title">
+                <h2>活动展示</h2>
+                <p>卿阁成员的精彩活动与成果</p>
+            </div>
+            <div class="activity-grid">
+                <div class="activity-card">
+                    <div class="activity-image">
+                        <img src="https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="女性沙龙">
+                    </div>
+                    <div class="activity-content">
+                        <h3>女性成长沙龙</h3>
+                        <div class="activity-meta">
+                            <span>2023年10月</span>
+                            <span>活动部</span>
+                        </div>
+                        <p>定期举办的女性成长沙龙，分享职场经验、生活智慧与成长心得。</p>
+                    </div>
+                </div>
+                <div class="activity-card">
+                    <div class="activity-image">
+                        <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="手工艺活动">
+                    </div>
+                    <div class="activity-content">
+                        <h3>手工艺创作</h3>
+                        <div class="activity-meta">
+                            <span>2023年9月</span>
+                            <span>文艺部</span>
+                        </div>
+                        <p>手工艺创作活动，培养成员的艺术修养与创造力，放松身心。</p>
+                    </div>
+                </div>
+                <div class="activity-card">
+                    <div class="activity-image">
+                        <img src="https://images.unsplash.com/photo-1551836026-d5c88ac5c4e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="读书会">
+                    </div>
+                    <div class="activity-content">
+                        <h3>女性读书会</h3>
+                        <div class="activity-meta">
+                            <span>2023年8月</span>
+                            <span>生活部</span>
+                        </div>
+                        <p>定期举办的读书分享会，探讨女性文学与成长主题，丰富精神世界。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>卿阁</h3>
+                    <p>专为女性打造的组织，提供专属的交流平台和发展空间。</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-weixin"></i></a>
+                        <a href="#"><i class="fab fa-qq"></i></a>
+                        <a href="#"><i class="fab fa-weibo"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>快速链接</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">首页</a></li>
+                        <li><a href="#about">关于卿阁</a></li>
+                        <li><a href="#features">组织特色</a></li>
+                        <li><a href="#structure">组织结构</a></li>
+                        <li><a href="#activities">活动展示</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>核心部门</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">人事部</a></li>
+                        <li><a href="#">活动部</a></li>
+                        <li><a href="#">外联部</a></li>
+                        <li><a href="#">宣传部</a></li>
+                        <li><a href="#">文艺部</a></li>
+                        <li><a href="#">生活部</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>联系我们</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-envelope"></i> contact@qingge-women.com</li>
+                        <li><i class="fas fa-phone"></i> +86 400-444-5555</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 北京市海淀区女性园区卿阁大厦</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 卿阁 版权所有 | 隶属于皇宸部落</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = '0 2px 15px rgba(0, 0, 0, 0.1)';
+            }
+        });
+
+        // 移动端菜单切换
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // 移动端点击后关闭菜单
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                    }
+                }
+            });
+        });
+
+        // 滚动动画
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // 观察需要动画的元素
+        document.querySelectorAll('.feature-card, .about-content, .org-node, .activity-card').forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

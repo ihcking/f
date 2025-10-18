@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>枫阁 - 培养扶持企业孵化园</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 全局样式 */
+        :root {
+            --primary-color: #2E7D32;
+            --secondary-color: #689F38;
+            --accent-color: #8BC34A;
+            --light-color: #F1F8E9;
+            --dark-color: #1B5E20;
+            --text-color: #33691E;
+            --card-bg: #FFFFFF;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            color: var(--text-color);
+            line-height: 1.6;
+            background: linear-gradient(135deg, #f1f8e9 0%, #e8f5e8 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark-color);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 3px;
+            background: var(--accent-color);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title p {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* 导航栏 */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            color: var(--dark-color);
+            font-size: 1.5rem;
+        }
+        
+        /* 英雄区域 */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(46, 125, 50, 0.7), rgba(27, 94, 32, 0.8)), url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 1s ease;
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(104, 159, 56, 0.3);
+        }
+        
+        .btn:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(46, 125, 50, 0.4);
+        }
+        
+        /* 关于枫阁 */
+        .about {
+            position: relative;
+        }
+        
+        .about::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(46,125,50,0.05)"/></svg>');
+            background-size: cover;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+        
+        .about-text p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            border: 5px solid var(--accent-color);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s;
+        }
+        
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* 部门展示 */
+        .departments {
+            background: rgba(255, 255, 255, 0.7);
+        }
+        
+        .dept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .dept-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            border-top: 5px solid var(--primary-color);
+            position: relative;
+        }
+        
+        .dept-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .dept-header {
+            padding: 20px;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+        
+        .dept-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.8rem;
+        }
+        
+        .dept-title {
+            flex: 1;
+        }
+        
+        .dept-title h3 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        
+        .dept-content {
+            padding: 20px;
+        }
+        
+        .dept-content p {
+            margin-bottom: 15px;
+        }
+        
+        .dept-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        
+        .dept-tag {
+            background: rgba(46, 125, 50, 0.1);
+            color: var(--primary-color);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        /* 孵化流程 */
+        .process {
+            position: relative;
+        }
+        
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin-top: 50px;
+        }
+        
+        .process-steps::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--accent-color);
+            z-index: 1;
+        }
+        
+        .process-step {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+        }
+        
+        .step-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .step-content h3 {
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+        
+        /* 组织结构 */
+        .structure {
+            background: rgba(255, 255, 255, 0.7);
+        }
+        
+        .org-chart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+        
+        .org-level {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 50px;
+            width: 100%;
+        }
+        
+        .org-node {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            width: 200px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--accent-color);
+            transition: all 0.3s;
+        }
+        
+        .org-node:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .org-node h4 {
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+        
+        .org-node p {
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+        }
+        
+        .connector {
+            position: absolute;
+            height: 30px;
+            width: 2px;
+            background: var(--accent-color);
+        }
+        
+        /* 成功案例 */
+        .cases {
+            position: relative;
+        }
+        
+        .case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .case-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .case-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .case-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .case-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .case-card:hover .case-image img {
+            transform: scale(1.1);
+        }
+        
+        .case-content {
+            padding: 20px;
+        }
+        
+        .case-content h3 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .case-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+        
+        /* 页脚 */
+        footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+            color: var(--accent-color);
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--accent-color);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+        
+        /* 动画 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .process-steps {
+                flex-direction: column;
+                gap: 40px;
+            }
+            
+            .process-steps::before {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: white;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 50px;
+                transition: left 0.3s;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+            
+            .dept-grid, .case-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <i class="fas fa-seedling"></i>
+                    枫阁
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#home">首页</a></li>
+                    <li><a href="#about">关于枫阁</a></li>
+                    <li><a href="#departments">部门介绍</a></li>
+                    <li><a href="#process">孵化流程</a></li>
+                    <li><a href="#structure">组织结构</a></li>
+                    <li><a href="#cases">成功案例</a></li>
+                    <li><a href="#contact">加入我们</a></li>
+                </ul>
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>枫阁</h1>
+                <p>培养扶持企业孵化园，助力创业梦想</p>
+                <a href="#about" class="btn">探索枫阁</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于枫阁 -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>关于枫阁</h2>
+                <p>培养扶持企业孵化园，为有创业梦想的成员提供资源支持、指导培训和孵化服务</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>我们的使命与愿景</h3>
+                    <p>枫阁成立于2020年，是一个以"创业孵化"为核心理念的企业孵化园。我们致力于为有创业梦想的成员提供资源支持、指导培训和孵化服务。</p>
+                    <p>枫阁汇聚了来自不同行业的创业导师和投资专家，通过系统化培训、资源对接和持续扶持，帮助创业者实现从想法到成功企业的转变。</p>
+                    <p>我们相信，创业是推动社会进步的重要力量，通过专业的孵化服务和持续的资源支持，能够培育出更多优秀的企业和创新项目。</p>
+                    <a href="#contact" class="btn" style="margin-top: 20px;">加入我们的枫阁</a>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="枫阁团队">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 部门介绍 -->
+    <section class="departments" id="departments">
+        <div class="container">
+            <div class="section-title">
+                <h2>部门介绍</h2>
+                <p>六大核心部门，各司其职，协同发展</p>
+            </div>
+            <div class="dept-grid">
+                <!-- 创业培训部 -->
+                <div class="dept-card">
+                    <div class="dept-header">
+                        <div class="dept-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="dept-title">
+                            <h3>创业培训部</h3>
+                            <p>创业教育</p>
+                        </div>
+                    </div>
+                    <div class="dept-content">
+                        <p>负责创业培训、技能提升、创业课程设计与导师资源整合，提升创业者综合能力。</p>
+                        <div class="dept-tags">
+                            <span class="dept-tag">创业培训</span>
+                            <span class="dept-tag">技能提升</span>
+                            <span class="dept-tag">课程设计</span>
+                            <span class="dept-tag">导师资源</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 资源对接部 -->
+                <div class="dept-card">
+                    <div class="dept-header">
+                        <div class="dept-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <div class="dept-title">
+                            <h3>资源对接部</h3>
+                            <p>资源整合</p>
+                        </div>
+                    </div>
+                    <div class="dept-content">
+                        <p>负责资源对接、投资引入、合作伙伴拓展与产业链整合，为创业项目提供全方位支持。</p>
+                        <div class="dept-tags">
+                            <span class="dept-tag">资源对接</span>
+                            <span class="dept-tag">投资引入</span>
+                            <span class="dept-tag">合作伙伴</span>
+                            <span class="dept-tag">产业链整合</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 项目管理部 -->
+                <div class="dept-card">
+                    <div class="dept-header">
+                        <div class="dept-icon">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div class="dept-title">
+                            <h3>项目管理部</h3>
+                            <p>项目跟进</p>
+                        </div>
+                    </div>
+                    <div class="dept-content">
+                        <p>负责项目管理、进度跟踪、风险评估与项目优化，确保孵化项目顺利推进。</p>
+                        <div class="dept-tags">
+                            <span class="dept-tag">项目管理</span>
+                            <span class="dept-tag">进度跟踪</span>
+                            <span class="dept-tag">风险评估</span>
+                            <span class="dept-tag">项目优化</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 市场拓展部 -->
+                <div class="dept-card">
+                    <div class="dept-header">
+                        <div class="dept-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="dept-title">
+                            <h3>市场拓展部</h3>
+                            <p>市场开发</p>
+                        </div>
+                    </div>
+                    <div class="dept-content">
+                        <p>负责市场拓展、品牌推广、渠道建设与营销策略，帮助创业项目打开市场。</p>
+                        <div class="dept-tags">
+                            <span class="dept-tag">市场拓展</span>
+                            <span class="dept-tag">品牌推广</span>
+                            <span class="dept-tag">渠道建设</span>
+                            <span class="dept-tag">营销策略</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 技术研发部 -->
+                <div class="dept-card">
+                    <div class="dept-header">
+                        <div class="dept-icon">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <div class="dept-title">
+                            <h3>技术研发部</h3>
+                            <p>技术支持</p>
+                        </div>
+                    </div>
+                    <div class="dept-content">
+                        <p>负责技术研发、产品优化、技术咨询与创新支持，为创业项目提供技术保障。</p>
+                        <div class="dept-tags">
+                            <span class="dept-tag">技术研发</span>
+                            <span class="dept-tag">产品优化</span>
+                            <span class="dept-tag">技术咨询</span>
+                            <span class="dept-tag">创新支持</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 行政服务部 -->
+                <div class="dept-card">
+                    <div class="dept-header">
+                        <div class="dept-icon">
+                            <i class="fas fa-clipboard-list"></i>
+                        </div>
+                        <div class="dept-title">
+                            <h3>行政服务部</h3>
+                            <p>行政支持</p>
+                        </div>
+                    </div>
+                    <div class="dept-content">
+                        <p>负责行政管理、后勤保障、法律咨询与政策解读，为创业项目提供全方位行政支持。</p>
+                        <div class="dept-tags">
+                            <span class="dept-tag">行政管理</span>
+                            <span class="dept-tag">后勤保障</span>
+                            <span class="dept-tag">法律咨询</span>
+                            <span class="dept-tag">政策解读</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 孵化流程 -->
+    <section class="process" id="process">
+        <div class="container">
+            <div class="section-title">
+                <h2>孵化流程</h2>
+                <p>系统化的孵化流程，助力创业成功</p>
+            </div>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <div class="step-content">
+                        <h3>创意筛选</h3>
+                        <p>评估创业项目的创新性、可行性和市场潜力。</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-icon">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div class="step-content">
+                        <h3>创业培训</h3>
+                        <p>提供系统的创业培训，提升创业者综合能力。</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <div class="step-content">
+                        <h3>项目优化</h3>
+                        <p>优化商业模式、产品设计和市场策略。</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-icon">
+                        <i class="fas fa-hand-holding-usd"></i>
+                    </div>
+                    <div class="step-content">
+                        <h3>资源对接</h3>
+                        <p>对接投资、技术和市场资源，支持项目发展。</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="step-content">
+                        <h3>项目孵化</h3>
+                        <p>提供办公空间、导师指导和持续支持。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 组织结构 -->
+    <section class="structure" id="structure">
+        <div class="container">
+            <div class="section-title">
+                <h2>组织结构</h2>
+                <p>清晰的层级结构，高效的决策机制</p>
+            </div>
+            <div class="org-chart">
+                <!-- 第一层：枫阁管理层 -->
+                <div class="org-level">
+                    <div class="org-node">
+                        <h4>阁主</h4>
+                        <p>枫华</p>
+                    </div>
+                    <div class="org-node">
+                        <h4>副阁主</h4>
+                        <p>枫叶</p>
+                    </div>
+                </div>
+                
+                <!-- 第二层：部门部长 -->
+                <div class="org-level">
+                    <div class="org-node">
+                        <h4>创业培训部部长</h4>
+                        <p>育才</p>
+                    </div>
+                    <div class="org-node">
+                        <h4>资源对接部部长</h4>
+                        <p>资源官</p>
+                    </div>
+                    <div class="org-node">
+                        <h4>项目管理部部长</h4>
+                        <p>项目官</p>
+                    </div>
+                    <div class="org-node">
+                        <h4>市场拓展部部长</h4>
+                        <p>市场官</p>
+                    </div>
+                    <div class="org-node">
+                        <h4>技术研发部部长</h4>
+                        <p>技术官</p>
+                    </div>
+                    <div class="org-node">
+                        <h4>行政服务部部长</h4>
+                        <p>行政官</p>
+                    </div>
+                </div>
+                
+                <!-- 第三层：副部长 -->
+                <div class="org-level">
+                    <div class="org-node">
+                        <h4>部门副部长</h4>
+                        <p>各1-2名</p>
+                    </div>
+                </div>
+                
+                <!-- 第四层：组长 -->
+                <div class="org-level">
+                    <div class="org-node">
+                        <h4>培训组长</h4>
+                        <p>若干名</p>
+                    </div>
+                    <div class="org-node">
+                        <h4>资源组长</h4>
+                        <p>若干名</p>
+                    </div>
+                    <div class="org-node">
+                        <h4>项目组长</h4>
+                        <p>若干名</p>
+                    </div>
+                    <div class="org-node">
+                        <h4>市场组长</h4>
+                        <p>若干名</p>
+                    </div>
+                    <div class="org-node">
+                        <h4>技术组长</h4>
+                        <p>若干名</p>
+                    </div>
+                    <div class="org-node">
+                        <h4>行政组长</h4>
+                        <p>若干名</p>
+                    </div>
+                </div>
+                
+                <!-- 第五层：副组长/成员 -->
+                <div class="org-level">
+                    <div class="org-node">
+                        <h4>副组长</h4>
+                        <p>若干名</p>
+                    </div>
+                    <div class="org-node">
+                        <h4>枫阁成员</h4>
+                        <p>全体成员</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 成功案例 -->
+    <section class="cases" id="cases">
+        <div class="container">
+            <div class="section-title">
+                <h2>成功案例</h2>
+                <p>枫阁孵化的优秀创业项目</p>
+            </div>
+            <div class="case-grid">
+                <div class="case-card">
+                    <div class="case-image">
+                        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="科技创业项目">
+                    </div>
+                    <div class="case-content">
+                        <h3>智能家居解决方案</h3>
+                        <div class="case-meta">
+                            <span>2022年孵化</span>
+                            <span>科技领域</span>
+                        </div>
+                        <p>提供智能家居整体解决方案，已获得A轮融资，市场估值超过1亿元。</p>
+                    </div>
+                </div>
+                <div class="case-card">
+                    <div class="case-image">
+                        <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="教育创业项目">
+                    </div>
+                    <div class="case-content">
+                        <h3>在线教育平台</h3>
+                        <div class="case-meta">
+                            <span>2021年孵化</span>
+                            <span>教育领域</span>
+                        </div>
+                        <p>专注于K12在线教育，已服务超过10万用户，获得多轮投资。</p>
+                    </div>
+                </div>
+                <div class="case-card">
+                    <div class="case-image">
+                        <img src="https://images.unsplash.com/photo-1556742044-3c52d6e88c62?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="健康创业项目">
+                    </div>
+                    <div class="case-content">
+                        <h3>健康管理应用</h3>
+                        <div class="case-meta">
+                            <span>2023年孵化</span>
+                            <span>健康领域</span>
+                        </div>
+                        <p>基于AI的健康管理平台，已与多家医疗机构建立合作关系。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>枫阁</h3>
+                    <p>培养扶持企业孵化园，助力创业梦想。</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-weixin"></i></a>
+                        <a href="#"><i class="fab fa-qq"></i></a>
+                        <a href="#"><i class="fab fa-weibo"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>快速链接</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">首页</a></li>
+                        <li><a href="#about">关于枫阁</a></li>
+                        <li><a href="#departments">部门介绍</a></li>
+                        <li><a href="#process">孵化流程</a></li>
+                        <li><a href="#structure">组织结构</a></li>
+                        <li><a href="#cases">成功案例</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>核心部门</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">创业培训部</a></li>
+                        <li><a href="#">资源对接部</a></li>
+                        <li><a href="#">项目管理部</a></li>
+                        <li><a href="#">市场拓展部</a></li>
+                        <li><a href="#">技术研发部</a></li>
+                        <li><a href="#">行政服务部</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>联系我们</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-envelope"></i> contact@fengge-incubator.com</li>
+                        <li><i class="fas fa-phone"></i> +86 400-222-3333</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 北京市朝阳区创业园区枫阁大厦</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 枫阁 版权所有 | 隶属于皇宸部落</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = '0 2px 15px rgba(0, 0, 0, 0.1)';
+            }
+        });
+
+        // 移动端菜单切换
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // 移动端点击后关闭菜单
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                    }
+                }
+            });
+        });
+
+        // 滚动动画
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // 观察需要动画的元素
+        document.querySelectorAll('.dept-card, .about-content, .org-node, .case-card, .process-step').forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

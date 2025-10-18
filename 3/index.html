@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>皇宸部落 - 实现梦想的部落</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 全局样式 */
+        :root {
+            --primary-color: #8B4513;
+            --secondary-color: #D2691E;
+            --accent-color: #CD853F;
+            --light-color: #F5F5DC;
+            --dark-color: #3E2723;
+            --text-color: #5D4037;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Serif SC', 'Microsoft YaHei', serif;
+        }
+        
+        body {
+            color: var(--text-color);
+            line-height: 1.6;
+            background: linear-gradient(135deg, #fdf6e3 0%, #f5e8c8 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark-color);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 3px;
+            background: var(--primary-color);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title p {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* 导航栏 */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(139, 69, 19, 0.95);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--light-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--light-color);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--light-color);
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            color: var(--light-color);
+            font-size: 1.5rem;
+        }
+        
+        /* 英雄区域 */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(62, 39, 35, 0.7), rgba(62, 39, 35, 0.8)), url('https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(139,69,19,0.1)"/></svg>');
+            background-size: cover;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 1s ease;
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* 关于部落 */
+        .about {
+            background: var(--light-color);
+            position: relative;
+        }
+        
+        .about::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(205,133,63,0.05)"/></svg>');
+            background-size: cover;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+        
+        .about-text p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            border: 5px solid var(--accent-color);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s;
+        }
+        
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* 组织展示 */
+        .organizations {
+            background: white;
+        }
+        
+        .org-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .org-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            border-top: 5px solid var(--primary-color);
+            position: relative;
+        }
+        
+        .org-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .org-header {
+            padding: 20px;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+        
+        .org-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.8rem;
+        }
+        
+        .org-title {
+            flex: 1;
+        }
+        
+        .org-title h3 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        
+        .org-title p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .org-content {
+            padding: 20px;
+        }
+        
+        .org-content p {
+            margin-bottom: 15px;
+        }
+        
+        .org-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        
+        .org-tag {
+            background: var(--light-color);
+            color: var(--primary-color);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        /* 部落理念 */
+        .philosophy {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-color) 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .philosophy-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .philosophy-content blockquote {
+            font-size: 1.8rem;
+            font-style: italic;
+            margin-bottom: 30px;
+            line-height: 1.8;
+            position: relative;
+        }
+        
+        .philosophy-content blockquote::before,
+        .philosophy-content blockquote::after {
+            content: '"';
+            font-size: 4rem;
+            color: rgba(255, 255, 255, 0.2);
+            position: absolute;
+        }
+        
+        .philosophy-content blockquote::before {
+            top: -20px;
+            left: -40px;
+        }
+        
+        .philosophy-content blockquote::after {
+            bottom: -40px;
+            right: -40px;
+        }
+        
+        .philosophy-content .author {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        /* 页脚 */
+        footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--accent-color);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+        
+        /* 动画 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .hero h1 {
+                font-size: 3rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: var(--primary-color);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 50px;
+                transition: left 0.3s;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+            
+            .org-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <i class="fas fa-campground"></i>
+                    皇宸部落
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#home">首页</a></li>
+                    <li><a href="#about">关于部落</a></li>
+                    <li><a href="#organizations">旗下组织</a></li>
+                    <li><a href="#philosophy">部落理念</a></li>
+                    <li><a href="#contact">加入我们</a></li>
+                </ul>
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>皇宸部落 - 实现梦想的部落</h1>
+                <p>汇聚多元力量，创造无限可能</p>
+                <a href="#organizations" class="btn">探索我们的组织</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于部落 -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>关于皇宸部落</h2>
+                <p>一个汇聚多元力量，共同实现梦想的综合性部落</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>我们的起源与使命</h3>
+                    <p>皇宸部落成立于2018年，是一个以"实现梦想"为核心的综合性部落。我们相信每个人心中都有梦想的种子，而皇宸部落就是培育这些种子成长的沃土。</p>
+                    <p>部落汇聚了来自不同领域、拥有不同专长的成员，通过资源共享、经验交流和互助合作，帮助每位成员实现个人价值，共同创造更大的社会价值。</p>
+                    <p>我们不仅是一个组织，更是一个大家庭，一个让梦想照进现实的平台。在这里，创意与激情碰撞，理想与现实交融，每个人都能找到属于自己的位置，发挥自己的潜能。</p>
+                    <a href="#contact" class="btn" style="margin-top: 20px;">加入我们的部落</a>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1531058020387-3be344556be6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="皇宸部落成员">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 组织展示 -->
+    <section class="organizations" id="organizations">
+        <div class="container">
+            <div class="section-title">
+                <h2>旗下组织</h2>
+                <p>多元化的组织架构，满足不同成员的需求与兴趣</p>
+            </div>
+            <div class="org-grid">
+                <!-- 乾龙公会 -->
+                <div class="org-card">
+                    <div class="org-header">
+                        <div class="org-icon">
+                            <i class="fas fa-dragon"></i>
+                        </div>
+                        <div class="org-title">
+                            <h3>乾龙公会</h3>
+                            <p>小说·游戏·商务</p>
+                        </div>
+                    </div>
+                    <div class="org-content">
+                        <p>以小说创作、游戏开发和商务合作为核心的综合性公会。我们致力于打造优质的内容生态，连接创意与市场。</p>
+                        <div class="org-tags">
+                            <span class="org-tag">小说创作</span>
+                            <span class="org-tag">游戏开发</span>
+                            <span class="org-tag">商务合作</span>
+                            <span class="org-tag">内容生态</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 卿城家族 -->
+                <div class="org-card">
+                    <div class="org-header">
+                        <div class="org-icon">
+                            <i class="fas fa-paint-brush"></i>
+                        </div>
+                        <div class="org-title">
+                            <h3>卿城家族</h3>
+                            <p>文艺创作圣地</p>
+                        </div>
+                    </div>
+                    <div class="org-content">
+                        <p>以文艺为主，努力创造出文学与艺术的圣地。我们汇聚文学创作者、艺术家和文化爱好者，共同打造精神家园。</p>
+                        <div class="org-tags">
+                            <span class="org-tag">文学创作</span>
+                            <span class="org-tag">艺术表达</span>
+                            <span class="org-tag">文化交流</span>
+                            <span class="org-tag">精神家园</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 枫谷师门 -->
+                <div class="org-card">
+                    <div class="org-header">
+                        <div class="org-icon">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <div class="org-title">
+                            <h3>枫谷师门</h3>
+                            <p>文化知识传承</p>
+                        </div>
+                    </div>
+                    <div class="org-content">
+                        <p>以兴趣为起点，传承发扬文化知识基地。我们通过师徒制传承技艺与知识，培养新一代文化传承者。</p>
+                        <div class="org-tags">
+                            <span class="org-tag">知识传承</span>
+                            <span class="org-tag">师徒制度</span>
+                            <span class="org-tag">文化发扬</span>
+                            <span class="org-tag">兴趣培养</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 潇府 -->
+                <div class="org-card">
+                    <div class="org-header">
+                        <div class="org-icon">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <div class="org-title">
+                            <h3>潇府</h3>
+                            <p>资源整合平台</p>
+                        </div>
+                    </div>
+                    <div class="org-content">
+                        <p>零散项目整合资源库。我们致力于将分散的项目和资源进行有效整合，创造更大的协同价值。</p>
+                        <div class="org-tags">
+                            <span class="org-tag">资源整合</span>
+                            <span class="org-tag">项目管理</span>
+                            <span class="org-tag">协同创新</span>
+                            <span class="org-tag">价值创造</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 卿阁 -->
+                <div class="org-card">
+                    <div class="org-header">
+                        <div class="org-icon">
+                            <i class="fas fa-female"></i>
+                        </div>
+                        <div class="org-title">
+                            <h3>卿阁</h3>
+                            <p>全女性组织</p>
+                        </div>
+                    </div>
+                    <div class="org-content">
+                        <p>专为女性成员打造的组织，提供专属的交流平台和发展空间，助力女性成员实现自我价值。</p>
+                        <div class="org-tags">
+                            <span class="org-tag">女性社群</span>
+                            <span class="org-tag">专属空间</span>
+                            <span class="org-tag">互助成长</span>
+                            <span class="org-tag">价值实现</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 逸阁 -->
+                <div class="org-card">
+                    <div class="org-header">
+                        <div class="org-icon">
+                            <i class="fas fa-vial"></i>
+                        </div>
+                        <div class="org-title">
+                            <h3>逸阁</h3>
+                            <p>项目先锋部队</p>
+                        </div>
+                    </div>
+                    <div class="org-content">
+                        <p>项目运营测试，先锋部队。我们负责新项目的测试与优化，为部落发展探索新的可能性。</p>
+                        <div class="org-tags">
+                            <span class="org-tag">项目测试</span>
+                            <span class="org-tag">先锋探索</span>
+                            <span class="org-tag">运营优化</span>
+                            <span class="org-tag">创新实验</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 枫阁 -->
+                <div class="org-card">
+                    <div class="org-header">
+                        <div class="org-icon">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <div class="org-title">
+                            <h3>枫阁</h3>
+                            <p>企业孵化园</p>
+                        </div>
+                    </div>
+                    <div class="org-content">
+                        <p>培养扶持企业孵化园。我们为有创业梦想的成员提供资源支持、指导培训和孵化服务。</p>
+                        <div class="org-tags">
+                            <span class="org-tag">创业孵化</span>
+                            <span class="org-tag">资源支持</span>
+                            <span class="org-tag">培训指导</span>
+                            <span class="org-tag">梦想实现</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 部落理念 -->
+    <section class="philosophy" id="philosophy">
+        <div class="container">
+            <div class="philosophy-content">
+                <blockquote>
+                    "皇宸部落不仅是一个组织，更是一种生活方式。在这里，我们相信每个人都有独特的价值，每个梦想都值得被尊重和实现。"
+                </blockquote>
+                <p class="author">- 皇宸部落创始人</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>皇宸部落</h3>
+                    <p>汇聚多元力量，创造无限可能。一个实现梦想的综合性部落。</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-weixin"></i></a>
+                        <a href="#"><i class="fab fa-qq"></i></a>
+                        <a href="#"><i class="fab fa-weibo"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>快速链接</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">首页</a></li>
+                        <li><a href="#about">关于部落</a></li>
+                        <li><a href="#organizations">旗下组织</a></li>
+                        <li><a href="#philosophy">部落理念</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>旗下组织</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">乾龙公会</a></li>
+                        <li><a href="#">卿城家族</a></li>
+                        <li><a href="#">枫谷师门</a></li>
+                        <li><a href="#">潇府</a></li>
+                        <li><a href="#">卿阁</a></li>
+                        <li><a href="#">逸阁</a></li>
+                        <li><a href="#">枫阁</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>联系我们</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-envelope"></i> contact@huangchen-tribe.com</li>
+                        <li><i class="fas fa-phone"></i> +86 400-123-4567</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 北京市朝阳区创意园区梦想大厦</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 皇宸部落 版权所有 | 设计制作: 皇宸科技</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(139, 69, 19, 0.98)';
+                header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.2)';
+            } else {
+                header.style.background = 'rgba(139, 69, 19, 0.95)';
+                header.style.boxShadow = '0 2px 15px rgba(0, 0, 0, 0.2)';
+            }
+        });
+
+        // 移动端菜单切换
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // 移动端点击后关闭菜单
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                    }
+                }
+            });
+        });
+
+        // 滚动动画
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // 观察需要动画的元素
+        document.querySelectorAll('.org-card, .about-content').forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
